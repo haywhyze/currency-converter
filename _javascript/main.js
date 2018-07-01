@@ -19,7 +19,7 @@ const fecthRates = (base, other) => {
  message.innerHTML = `1 ${basecurrency.value} = ${rates} ${othercurrency.value}`;
  otherAmount.value = '';
  baseAmount.value = '';
- console.log(rates);
+//  console.log(rates);
 }).catch(function(err){
   console.log(err);
 });
@@ -62,7 +62,7 @@ othercurrency.addEventListener("change", () => {
 
  convert.addEventListener("click", () => {
    if (baseAmount.value > 0) {
-    otherAmount.value = baseAmount.value * rates; 
+    otherAmount.value = (baseAmount.value * rates).toFixed(4); 
    }
  });
 
