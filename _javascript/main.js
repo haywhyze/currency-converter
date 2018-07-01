@@ -91,3 +91,13 @@ Object.entries(results).forEach(([key,value]) => {
   baseSymbol.innerHTML = `${myObj[baseId.innerHTML] || ''}`;
   otherSymbol.innerHTML = `${myObj[otherId.innerHTML] || ''}`;
   fecthRates(`${baseId.innerHTML}`, `${otherId.innerHTML}`);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+    .then(function() {
+      console.log('Registration successful');
+    })
+    .catch(function(error) {
+      console.log('Service worker registration failed, error:', error);
+    });
+  }
