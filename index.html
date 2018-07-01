@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My first Bulma website</title>
+    <title>Haywhyze Currency Converter</title>
     <link rel="stylesheet" href="css/main.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   </head>
@@ -25,85 +25,95 @@
     <main class="container">
       <div class="level">
           <div class="field level-item has-text-centered">
+            
             <div class="control has-icons-left">
+              
               <div class="select">
-                <select name="base-currency" id="base-currency">
-                  <option value="USD">United States Dollars</option>
-                  <option value="USD">Nigerian Naira</option>
-                  <option value="USD">Great Britain Pounds</option>
+                <select class="is-size-7-mobile is-size-6-tablet is-size-6-desktop" name="base-currency" id="base-currency">
+                  
                 </select>
               </div>
-              <div class="icon is-small is-left">
-                <i class="fas fa-globe"></i>
+              <div class="icon is-size-7-mobile is-size-6-tablet is-size-6-desktop is-left">
+                <i class="far fa-money-bill-alt"></i>
               </div>
+              <p class="help">Select the base currency (from)</p>
             </div>
             </div>
             <div class="field level-item has-text-centered">
-              <div class="control has-icons-left">
-                <div class="select">
-                  <select name="other-currency" id="other-currency">
-                    <option value="USD">United States Dollars</option>
-                  <option value="USD">Nigerian Naira</option>
-                  <option value="USD">Great Britain Pounds</option>
-                  </select>
-                </div>
-                <div class="icon is-small is-left">
-                  <i class="fas fa-globe"></i>
-                </div>
+              
+              <div class="control has-icons-left">  
+              <div class="select">
+                <select class="is-size-7-mobile is-size-6-tablet is-size-6-desktop" name="other-currency" id="other-currency">
+                  
+                </select>
+              </div>
+              <div class="icon is-size-7-mobile is-size-6-tablet is-size-6-desktop is-left">
+                <i class="fas fa-money-bill-alt"></i>
+              </div>
+              <p class="help">Select the other currency (to)</p>
               </div>
             </div>
       </div>
-      <div>
-          <section class="hero is-medium is-primary is-bold">
+      <div class="columns">
+          <section class="hero column is-8 is-offset-2 is-medium is-primary is-bold">
               <div class="hero-head">
                 
-                    <article class="message is-medium is-primary">
+                    <article class="message is-primary">
                         <div class="message-body has-text-centered">
-                          <h2>1 United States Dollar = 360 Nigerian naira</h2>
+                          <h3 id="message"></h3>
                         </div>
                     </article>
                 
               </div>
               <div class="hero-body has-text-centered">
                 <div class="columns">
-                  
+                    <p class="help">Currency converting from</p>
+ 
                   <div class="field column has-addons">
+                 
                       <p class="control">
-                          <a class="button is-large is-static">
-                            USD
+                          <a id="base-id" class="button is-static">
+                            
                           </a>
                         </p>
                         <p class="control">
-                            <a class="button is-large is-static">
-                              $
+                            <a id="base-symbol" class="button is-static">
+                              
+                            </a>
+                          </p>
+                          
+                    <p class="control is-expanded">
+                      <input id="base-amount" class="input" type="number" placeholder="Amount in Base Currency">
+                    </p>
+                    
+
+                  </div>
+                  <p class="help">Currency converting to</p>
+
+                  <div class="field column has-addons">
+                      <p class="control">
+                          <a id="other-id" class="button is-static">
+                            
+                          </a>
+                        </p>
+                        <p class="control">
+                            <a id="other-symbol" class="button is-static">
+                              
                             </a>
                           </p>
                     <p class="control is-expanded">
-                      <input class="input is-large" type="number" placeholder="Amount in Base Currency">
+                      <input disabled id="other-amount" class="input" type="number" placeholder="Amount in Other Currency">
                     </p>
 
                   </div>
                   <div class="column is-2">
-                      <a class="button is-large">
-                        <i class="fas fa-retweet"></i>
-                      </a>
-                  </div>
-                  <div class="field column has-addons">
-                      <p class="control">
-                          <a class="button is-large is-static">
-                            USD
-                          </a>
-                        </p>
-                        <p class="control">
-                            <a class="button is-large is-static">
-                              $
-                            </a>
-                          </p>
-                    <p class="control is-expanded">
-                      <input class="input is-large" type="number" placeholder="Amount in Foreign Currency">
-                    </p>
-
-                  </div>
+                    <a id="convert" class="button">
+                      <span class="icon">
+                        <i class="fas fa-exchange-alt"></i>
+                      </span>
+                      <span>Convert</span>
+                    </a>
+                </div>
                 </div>
                 
               </div>
@@ -111,7 +121,7 @@
                 <div class="columns">
                  <div class="column is-8-desktop is-offset-2-desktop">
                    <p style="margin-top: 1rem;">
-                     <small>With love from Haywhyze</small>
+                     <small>With <i class="fas fa-heart"></i> by Haywhyze</small><br>
                      <a href="http://bulma.io">
                        <img src="made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
                      </a>
@@ -122,6 +132,7 @@
             </section>
       </div>
     </main>
+    <script src="data/currencies.json"></script>
     <script type="text/javascript" src="lib/main.js"></script>
   </body>
 </html>
