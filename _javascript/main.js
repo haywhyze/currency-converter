@@ -94,8 +94,8 @@ Object.entries(results).forEach(([key,value]) => {
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-    .then(function() {
-      console.log('Registration successful');
+    .then(function(reg) {
+      console.log('Registration successful, ', reg);
     })
     .catch(function(error) {
       console.log('Service worker registration failed, error:', error);

@@ -1,5 +1,43 @@
 /* jshint esversion: 6 */
 
+
+// saving response to cache
+let updateCache = (request, response) => {
+  return caches.open(APP_CACHE).then((cache) => cache.put(request, response));
+};
+
+// get response from cache
+let fromCache = (request) => {
+return caches.open(APP_CACHE).then((cache) => {
+  return cache.match(request).then((matchingData) => {
+    return matchingData || Promise.reject('No_match');
+  });
+});
+};
+
+// get immediate cache response but fall back to network
+let immediateCacheResponse = (event) => {
+  const networkRequest =
+      new Request(`${event.request.url}?${Date.now().toString()}`);
+
+  const network = fetch(networkRequest);
+  const networkDuplicate = network.then((response) => response.clone());
+
+  event.respondWith(fromCache(event.request).catch(() => networkDuplicate));
+  event.waitUntil(network.then((respond) => updateCache(event.request, respond)));
+};
+
+let tryCatchFallbackNetwork = (event) => {
+  let response = null;
+  event.respondWith(fromCache(event.request)
+      .catch(() => fetch(event.request.clone())
+          .then((resp) => {
+              response = resp;
+              return updateCache(event.request, resp.clone());
+          })
+          .then(() => response)));
+};
+
 const APP_CACHE = 'currency-converter-v3';
 
 
@@ -18,7 +56,11 @@ const urlsToCache = [
 // Install essential URLs.
 self.addEventListener('install', (event) => {
   event.waitUntil(
-      caches.open(APP_CACHE).then((cache) => cache.addAll(urlsToCache)));
+      caches.open(APP_CACHE)
+      .then((cache) => {
+        console.log('Opened Cache')
+        return cache.addAll(urlsToCache); 
+      }));
 });
 
 // Delete old caches.
@@ -47,41 +89,3 @@ self.addEventListener('fetch', (event) => {
     tryCatchFallbackNetwork(event);
   }
 });
-
-let tryCatchFallbackNetwork = (event) => {
-  let response = null;
-  event.respondWith(fromCache(event.request)
-      .catch(() => fetch(event.request.clone())
-          .then((resp) => {
-              response = resp;
-              return updateCache(event.request, resp.clone());
-          })
-          .then(() => response)));
-};
-
-// get immediate cache response but fall back to network
-let immediateCacheResponse = (event) => {
-  const networkRequest =
-      new Request(`${event.request.url}?${Date.now().toString()}`);
-
-  const network = fetch(networkRequest);
-  const networkDuplicate = network.then((response) => response.clone());
-
-  event.respondWith(fromCache(event.request).catch(() => networkDuplicate));
-  event.waitUntil(network.then((respond) => updateCache(event.request, respond)));
-};
-
-// saving response to cache
-let updateCache = (request, response) => {
-    return caches.open(APP_CACHE).then((cache) => cache.put(request, response));
-  };
-
-// get response from cache
-let fromCache = (request) => {
-  return caches.open(APP_CACHE).then((cache) => {
-    return cache.match(request).then((matchingData) => {
-      return matchingData || Promise.reject('No_match');
-    });
-  });
-};
-
