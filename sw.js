@@ -1,6 +1,6 @@
 // /* jshint esversion: 6 */
 
-const APP_CACHE = 'currency-converter-v14';
+const APP_CACHE = 'currency-converter-v3';
 
 
 // Cached files
@@ -16,7 +16,7 @@ const urlsToCache = [
 // Install essential URLs.
 self.addEventListener('install', (event) => {
   event.waitUntil(
-      caches.open(APP_CACHE).then((cache) => cache.addAll(urlsToCache)));
+    caches.open(APP_CACHE).then((cache) => cache.addAll(urlsToCache)));
 });
 
 // Delete old caches

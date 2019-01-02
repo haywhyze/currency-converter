@@ -7,20 +7,29 @@ const append = (parent, el) => {
 return parent.appendChild(el);
 };
 
-const fecthRates = (base, other) => {
-  convert.classList.add('is-loading');
-  fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${base}_${other}`)
-.then((response) => response.json())
-.then(function(data) {
- rates = parseFloat(data.results[`${baseId.innerHTML}_${otherId.innerHTML}`].val);
- convert.classList.remove('is-loading');
- message.innerHTML = `1 ${basecurrency.value} = ${rates.toFixed(4)} ${othercurrency.value}`;
+const displayResults= (rates) => {
+  message.innerHTML = `1 ${basecurrency.value} = ${rates.toFixed(4)} ${othercurrency.value}`;
  inverse.innerHTML = `1 ${othercurrency.value} = ${parseFloat(1 / rates).toFixed(4)} ${basecurrency.value}`;
  otherAmount.value = '';
  baseAmount.value = '';
+}
+
+const fecthRates = (base, other) => {
+  if (base == other) {
+    rates = 1;
+    displayResults(rates)
+  }
+  else {
+    fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${base}_${other}`)
+.then((response) => response.json())
+.then(function(data) {
+ rates = parseFloat(data.results[`${baseId.innerHTML}_${otherId.innerHTML}`].val);
+ displayResults(rates);
 }).catch(function(err){
   console.log(err);
-});
+});  
+  }
+  
 };
 
 // declare variables
@@ -58,9 +67,7 @@ othercurrency.addEventListener("change", () => {
 });
 
  convert.addEventListener("click", () => {
-  convert.classList.add('is-loading');
   setTimeout(() => {
-    convert.classList.remove('is-loading');
     if (baseAmount.value) {
       otherAmount.value = (baseAmount.value * rates).toFixed(4);
       inverse.innerHTML = `${baseAmount.value} ${othercurrency.value} = ${parseFloat(1 / rates * baseAmount.value).toFixed(4)} ${basecurrency.value}`;
@@ -112,3 +119,16 @@ currencyArray.map((e) => {
       console.log('Service worker registration failed. Error:', error);
     });
   }
+
+
+var key = 'STORE_KEY';
+// var value = 'What we save offline';
+var value = 'yusuf';
+
+localforage.setItem(key, value, function() {
+  console.log('Using:' + localforage.driver());
+  console.log('Saved: ' + value);
+});  
+localforage.getItem(key).then(function(readValue) {
+  console.log('Read: ', readValue);
+});
