@@ -5,7 +5,7 @@ const APP_CACHE = 'currency-converter-v14';
 
 // Cached files
 const urlsToCache = [
-  '/'
+  '/',
   '/index.html',
   '/data/currencies.json',
   '/css/main.css',
