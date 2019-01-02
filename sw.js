@@ -5,13 +5,6 @@ const APP_CACHE = 'currency-converter-v14';
 
 // Cached files
 const urlsToCache = [
-  '/',
-//   '/index.html',
-//   '/data/currencies.json',
-//   '/css/main.css',
-//   '/made-with-bulma.png',
-//   'https://use.fontawesome.com/releases/v5.0.7/js/all.js',
-//   '/lib/main.js'
 ];
 
 // Install essential URLs.
