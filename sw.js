@@ -5,6 +5,7 @@ const APP_CACHE = 'currency-converter-v14';
 
 // Cached files
 const urlsToCache = [
+  '/'
   '/index.html',
   '/data/currencies.json',
   '/css/main.css',
@@ -35,13 +36,13 @@ self.addEventListener('activate', (event) => {
 
 // Fetch data from cache.
 self.addEventListener('fetch', (event) => {
-  const requestURL = new URL(event.request.url);
+//   const requestURL = new URL(event.request.url);
 
-  if (requestURL.pathname == '/' && requestURL.origin == location.origin) {
-    event.respondWith(
-      caches.match('/index.html')
-    );
-  }
+//   if (requestURL.pathname == '/' && requestURL.origin == location.origin) {
+//     event.respondWith(
+//       caches.match('/index.html')
+//     );
+//   }
 
   else event.respondWith(
     caches.match(event.request).then(response => response || fetch (event.request)
